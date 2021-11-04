@@ -20,5 +20,12 @@ namespace Salvo.Repositories
                 .ToList();
         }
 
+        public IEnumerable<Game> GetAllGamesWithPlayers()
+        {
+            return FindAll(source => source.Include(game => game.GamePlayers)
+            .ThenInclude(gamePlayer => gamePlayer.Player))
+                .OrderBy(game => game.CreationDate)
+                .ToList();
+        }
     }
 }
